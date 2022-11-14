@@ -4,9 +4,9 @@ provider:
   name: aws
   runtime: nodejs12.x
   memorySize: 128
-  profile: [profile]
+  profile: [default]
   stage: v1
-  region: [region]
+  region: [eu-west-2]
   environment:
     AWS_SQS_QUEUE_URL: { Ref: SQSQueue }
   iamRoleStatements:
