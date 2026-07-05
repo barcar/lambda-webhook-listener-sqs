@@ -1,8 +1,7 @@
 'use strict'
-const AWS = require('aws-sdk')
-const sqs = new AWS.SQS({
-  apiVersion: '2012-11-05'
-})
+const { SQSClient, SendMessageCommand } = require('@aws-sdk/client-sqs')
+
+const sqs = new SQSClient({})
 
 module.exports.webhook = async (event, context) => {
   console.log(JSON.stringify(event, null, 2))
@@ -40,7 +39,7 @@ module.exports.webhook = async (event, context) => {
       QueueUrl: process.env.AWS_SQS_QUEUE_URL,
       MessageAttributes: attrib
     }
-    const result = await sqs.sendMessage(params).promise()
+    const result = await sqs.send(new SendMessageCommand(params))
     console.log(result)
     return {
       statusCode: 200
